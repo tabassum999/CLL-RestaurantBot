@@ -1,0 +1,318 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: scenario 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: cuisine_food
+  # - action: utter_location_cuisine
+    entities:
+      - cuisine: italian
+  - slot_was_set:
+      - cuisine: italian
+  - action: action_custom_cuisine
+  - slot_was_set:
+      - restaurants: ["Mehfil","Pakwaan Grand","Desi Dhaba","Imperial","Shah Ghouse","Rumaan","4 seasons","Mandar"]
+  - action: action_find_restaurants
+  - slot_was_set:
+      - cuisine: None 
+
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+
+- story: scenario 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: what_can_do
+  - action: utter_assist
+  - intent: location_cuisine
+  #- action: utter_location_cuisine
+    entities:
+    - cuisine: Indian
+    - location: Hyderabad
+  - slot_was_set:
+      - cuisine: Indian
+      - location: Hyderabad
+  - action: get_restaurants
+
+  - intent: goodbye
+  - action: utter_goodbye
+  
+- story: scenario 3
+  steps:
+  - intent: location_cuisine
+  - action: utter_location_cuisine
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 4
+  steps:
+  - intent: location_cuisine
+  - action: utter_location_cuisine 
+  
+- story: scenario 5
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: cuisine_food
+  - action: utter_ask_location
+  - intent: location_specify
+  - action: utter_location_cuisine
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 6
+  steps:
+  - intent: location_specify
+  - action: utter_ask_search
+  - intent: affirm
+  - action: utter_ask_cuisine
+  - intent: cuisine_food
+  - action: utter_location_cuisine
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 7
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: what_are_you
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: location_cuisine
+  - action: utter_location_cuisine
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 8
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_are_you
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location
+  - intent: no_loc_cuisine
+  - action: utter_location_denied
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 9
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: find_restaurant
+  - action: utter_ask_location
+  - intent: no_loc_cuisine
+  - action: utter_location_denied
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 10
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: no_loc_cuisine
+  - action: utter_loc_without_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 11
+  steps:
+  - intent: cuisine_food
+  - action: utter_ask_location 
+  - intent: no_loc_cuisine
+  - action: utter_location_denied
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 12
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 13
+  steps:
+  - intent: location_specify 
+  - action: utter_ask_cuisine
+  - intent: no_loc_cuisine
+  - action: utter_loc_without_cuisine
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 14
+  steps:
+  - intent: location_specify 
+  - action: utter_ask_search
+  - intent: no_loc_cuisine
+  - action: utter_iamabot
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 15
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify 
+  - action: utter_turn_location
+  - intent: affirm
+  - action: utter_ask_cuisine
+  - intent: cuisine_food
+  - action: utter_location_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 16
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_turn_location
+  - intent: no_loc_cuisine
+  - action: utter_location_denied
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 17
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: no_loc_cuisine
+  - action: utter_cuisine_deny
+  - intent: affirm
+  - action: utter_loc_without_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 18
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: no_loc_cuisine
+  - action: utter_suggest
+  - intent: deny
+  - action: utter_suggest1
+  - intent: no_loc_cuisine 
+  - action: utter_location_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 19
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: no_loc_cuisine
+  - action: utter_suggest
+  - intent: deny
+  - action: utter_suggest1
+  - intent: deny
+  - action: utter_sorry
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: scenario 20
+  steps:
+  - intent: greet
+  - action: utter_iamabot
+  - intent: what_can_do
+  - action: utter_can_help
+  - intent: find_restaurant
+  - action: utter_ask_location 
+  - intent: location_specify
+  - action: utter_ask_cuisine
+  - intent: cuisine_food
+  - action: utter_location_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: no_loc_cuisine
+  - action: utter_ask_cuisine
+  - intent: cuisine_food
+  - action: utter_location_cuisine
+  - intent: affirm
+  - action: utter_user_satisfy
+  - intent: goodbye
+  - action: utter_goodbye
+
+
